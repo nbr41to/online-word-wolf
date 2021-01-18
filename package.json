@@ -8,11 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/styled-components": "^5.1.7",
+    "firebase": "^8.2.3",
+    "mdx": "^0.3.1",
     "next": "10.0.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "@types/styled-components": "^5.1.7",
-    "firebase": "^8.2.3",
     "recoil": "^0.1.2",
     "shortid": "^2.2.16",
     "styled-components": "^5.2.1",

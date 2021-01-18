@@ -8,11 +8,12 @@ export const GlobalStyle = createGlobalStyle`
     color: #333;
   }
   .box {
-    padding: 8px;
-    border: 2px solid #333;
-    margin: 8px;
+    padding: 16px;
+    border: 4px solid #333;
+    margin: 16px;
     border-radius: 16px;
   }
+  /* Flexbox */
   .flex {
     display: flex;
   }
@@ -20,6 +21,40 @@ export const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
   }
+  .between {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .column {
+    flex-direction: column;
+  }
+  /* 余白 */
+  .mt-8 {
+    margin-top: 8px;
+  }
+  .mt-16 {
+    margin-top: 16px;
+  }
+  .mb-8 {
+    margin-bottom: 8px;
+  }
+  .mb-16 {
+    margin-bottom: 16px;
+  }
+  .mr-8 {
+    margin-right: 8px;
+  }
+  .mr-16 {
+    margin-right: 16px;
+  }
+  .ml-8 {
+    margin-left: 8px;
+  }
+  .ml-16 {
+    margin-left: 16px;
+  }
+  /* 背景 */
   .bgc-g {
     background-color: palegreen;
   }

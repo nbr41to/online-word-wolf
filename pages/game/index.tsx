@@ -1,4 +1,4 @@
-import { Button } from 'components/Button'
+import { Button } from 'src/components/Button'
 import { useRouter } from 'next/router'
 import React from 'react'
 

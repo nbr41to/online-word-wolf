@@ -1,22 +1,29 @@
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { Button } from 'components/Button'
-import { ImageBox } from 'components/ImageBox/index'
-import styled from 'styled-components'
+import React from 'react'
+import { TopMenuButtons } from 'src/components/organisms/TopMenuButtons'
+import firebase from 'src/firebase'
 
 export default function Home() {
-  const router = useRouter()
+  const [themes, setThemes] = React.useState([])
+
+  React.useEffect(() => {
+    firebase.auth().signInAnonymously().then(() => {
+      firebase.firestore().collection("subjects").onSnapshot((snapshot) => {
+        let getThemes = snapshot.docs.map((doc) => {
+          const getTheme = doc.data()
+          return getTheme
+        })
+        setThemes(getThemes)
+      })
+    })
+  }, [])
+  console.log(themes)
   return (
     <div>
-      <ImageBox src='/arctic-wolf.jpg' width={1920 / 2} height={1280 / 2} />
       <div className='flex center'>
-        <StyledButton label='遊び方' onClick={() => { }} />
-        <StyledButton label='始める' onClick={() => router.push('/game')} />
+        <Image src='/arctic-wolf.jpg' width={1920 / 2} height={1280 / 2} />
       </div>
+      <TopMenuButtons />
     </div>
   )
 }
-
-const StyledButton = styled(Button)`
-  margin: 16px;
-`
