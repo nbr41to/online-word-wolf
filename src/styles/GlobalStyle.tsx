@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'MS Gothic',sans-serif;
     /* font-size: 62.5%; */
     font-size: 100%;
+    font-weight: bold;
     color: #333;
   }
   .box {

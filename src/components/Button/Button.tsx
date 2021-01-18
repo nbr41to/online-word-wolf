@@ -5,6 +5,7 @@ export type ButtonProps = {
   className?: string
   onClick: () => void
   label: string
+  size?: 'small' | 'middle' | 'large'
   disabled?: boolean
 }
 
@@ -12,11 +13,12 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   label,
   onClick,
+  size = 'middle',
   disabled = false,
 }) => {
   return (
     <StyledButton
-      className={className}
+      className={`${className} ${size}`}
       disabled={disabled}
       onClick={onClick}
     >
@@ -29,12 +31,19 @@ export const StyledButton = styled.button`
   font-weight: bold;
   display: block;
   text-align: center;
-  padding: 12px 32px;
   border: 3px solid #333;
   border-radius: 18px;
   box-shadow: 0px 4px 0px #333;
   position: relative;
   background-color: #fff;
+  &.small {
+    font-size: 16px;
+    padding: 12px 20px
+  }
+  &.middle {
+    font-size: 18px;
+    padding: 16px 24px;
+  }
 
   &:active {
     position: relative;

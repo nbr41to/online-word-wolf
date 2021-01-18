@@ -3,13 +3,13 @@ import "firebase/firestore"
 import "firebase/auth"
 
 // const firebaseConfig = {
-//     apiKey: `${process.env.DB_API_KEY}`,
-//     authDomain: `${process.env.DB_AUTH_DOMAIN}`,
-//     databaseURL: `${process.env.DB_DATABASE_URL}`,
-//     projectId: `${process.env.DB_PROJECT_ID}`,
-//     storageBucket: `${process.env.DB_STORAGE_BUCKET}`,
-//     messagingSenderId: `${process.env.DB_MESSAGING_SENDER_ID}`,
-//     appId: `${process.env.DB_APP_ID}`,
+//     apiKey: process.env.DB_API_KEY,
+//     authDomain: process.env.DB_AUTH_DOMAIN,
+//     databaseURL: process.env.DB_DATABASE_URL,
+//     projectId: process.env.DB_PROJECT_ID,
+//     storageBucket: process.env.DB_STORAGE_BUCKET,
+//     messagingSenderId: process.env.DB_MESSAGING_SENDER_ID,
+//     appId: process.env.DB_APP_ID,
 // }
 
 const firebaseConfig = {
@@ -22,7 +22,9 @@ const firebaseConfig = {
     appId: "1:96840990243:web:dc2f966327e830226abb96"
 }
 
-firebase.initializeApp(firebaseConfig)
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export const db = firebase.firestore()
 export default firebase

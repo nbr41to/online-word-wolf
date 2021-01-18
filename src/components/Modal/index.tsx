@@ -5,13 +5,14 @@ import { Button } from '../Button'
 type ModalProps = {
   isOpen: boolean
   closed: () => void
+  size: 'small' | 'middle' | 'large'
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, closed, children }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, closed, size, children }) => {
   if (isOpen) {
     return (
       <StyleOverlay className='flex center column'>
-        <StyleModal className='box'>
+        <StyleModal className={`flex center column box ${size}`}>
           {children}
         </StyleModal>
         <Button label='閉じる' onClick={closed} />
@@ -32,7 +33,18 @@ const StyleOverlay = styled.div`
 `
 const StyleModal = styled.div`
   width: 90%;
-  height: 70%;
   max-height: 70%;
   background-color: #fff;
+  &.small {
+    height: 30%;
+    max-height: 30%;
+  }
+  &.middle {
+    height: 50%;
+    max-height: 50%;
+  }
+  &.large {
+    height: 70%;
+    max-height: 70%;
+  }
 `

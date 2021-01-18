@@ -7,7 +7,7 @@ export const TopMenuButtons = () => {
   const router = useRouter()
   return (
     <div className='flex center'>
-      <StyledModalButton label='遊び方' />
+      <StyledModalButton label='遊び方' modalSize='large' />
       <StyledButton label='始める' onClick={() => router.push('/game')} />
     </div>
   )
