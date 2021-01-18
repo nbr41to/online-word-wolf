@@ -35,6 +35,11 @@ const StyleModal = styled.div`
   width: 90%;
   max-height: 70%;
   background-color: #fff;
+  /* 案1 */
+  /* box-shadow: 6px 8px 8px rgba(0,0,0,0.6); */
+  /* 案2 */
+  box-shadow: 0px 4px 0px #333;
+
   &.small {
     height: 30%;
     max-height: 30%;
