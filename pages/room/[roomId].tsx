@@ -2,7 +2,7 @@
 export default () => {
   return (
     <div>
-      on game
+      待機中...
     </div>
   )
 }

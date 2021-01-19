@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button } from '../Button'
 import { useRecoilState } from 'recoil'
-import { userInfo } from 'src/recoil/atom'
+import { user } from 'src/recoil/atom'
 import styled from 'styled-components'
 import { UserIcon } from '../UserPlate/UserIcon'
 import { Name } from '../UserPlate/Name'
 import { Modal } from '../Modal'
 
 export const NamePlate = () => {
-  const [info, setInfo] = useRecoilState(userInfo)
+  const [info, setInfo] = useRecoilState(user)
   const [text, setText] = React.useState(info.name)
   const [isEditing, setIsEditing] = React.useState(false)
   const saveName = () => {

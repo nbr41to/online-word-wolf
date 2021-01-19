@@ -1,21 +1,37 @@
 import {atom} from'recoil'
 
-type UserInfo = {
+type User = {
   name: string
   icon: 'lion' | 'neko'
 }
-export const userInfo = atom<UserInfo>({
-  key: 'userInfo',
+export const user = atom<User>({
+  key: 'user',
   default: {
     name: 'ななしたけし',
     icon: 'lion',
   },
 });
 
-export const roomInfo = atom({
-  key: 'roomInfo',
+type Room = {
+  roomId: string
+  inviteCode: string
+  host: string
+  players: string[],
+  table: {},
+  isGaming: boolean,
+  finished: boolean,
+  votes: string[],
+}
+export const room = atom({
+  key: 'room',
   default: {
     roomId: '',
-    room_key: '',
+    inviteCode: '',
+    host: '',
+    players: [],
+    table: {},
+    isGaming: false,
+    finished: false,
+    votes: [],
   },
 });

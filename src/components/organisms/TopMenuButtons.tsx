@@ -10,7 +10,7 @@ export const TopMenuButtons = () => {
   return (
     <div className='flex center'>
       <StyledButton label='遊び方' onClick={() => set(true)} />
-      <StyledButton label='始める' onClick={() => router.push('/game')} />
+      <StyledButton label='始める' onClick={() => router.push('/room')} />
       <Modal size="large" isOpen={isOpen} closed={() => set(false)}>
         <PlayingRole />
       </Modal>
