@@ -3,19 +3,20 @@ import styled from 'styled-components'
 import { Button } from '../Button'
 
 type ModalProps = {
+  className?: string
   isOpen: boolean
   closed: () => void
   size: 'small' | 'middle' | 'large'
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, closed, size, children }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, closed, size, className = '', children }) => {
   if (isOpen) {
     return (
       <StyleOverlay className='flex center column'>
-        <StyleModal className={`flex center column box ${size}`}>
+        <StyleModal className={`flex center column box ${size} ${className}`}>
           {children}
         </StyleModal>
-        <Button label='閉じる' onClick={closed} />
+        <Button className='mt-16' label='閉じる' onClick={closed} />
       </StyleOverlay>
     )
   } else {
@@ -29,7 +30,7 @@ const StyleOverlay = styled.div`
   z-index: 99;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.5);
 `
 const StyleModal = styled.div`
   width: 90%;

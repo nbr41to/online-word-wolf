@@ -6,7 +6,10 @@ export type ButtonProps = {
   onClick: () => void
   label: string
   size?: 'small' | 'middle' | 'large'
+  fill?: boolean
   disabled?: boolean
+  color?: string
+  pressColor?: string
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -14,26 +17,33 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
   size = 'middle',
+  fill = false,
+  color = '#333',
+  pressColor = 'palegreen',
   disabled = false,
 }) => {
   return (
     <StyledButton
       className={`${className} ${size}`}
-      disabled={disabled}
       onClick={onClick}
+      fill={fill}
+      color={color}
+      pressColor={pressColor}
+      disabled={disabled}
     >
       {label}
     </StyledButton>
   )
 }
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button<{ color: string, pressColor: string, fill: boolean }>`
+  width: ${props => props.fill ? '100%' : ''};
   font-weight: bold;
   display: block;
   text-align: center;
-  border: 3px solid #333;
+  border: 3px solid ${props => props.color};
   border-radius: 18px;
-  box-shadow: 0px 4px 0px #333;
+  box-shadow: 0px 4px 0px ${props => props.color};
   position: relative;
   background-color: #fff;
   &.small {
@@ -48,8 +58,8 @@ export const StyledButton = styled.button`
   &:active {
     position: relative;
     top: 2px;
-    box-shadow: 0px 2px 0px #333;
-    background-color: palegreen;
+    box-shadow: 0px 2px 0px ${props => props.color};
+    background-color: ${props => props.pressColor};
   }
   &:disabled {
     opacity: 0.4;

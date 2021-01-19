@@ -21,6 +21,9 @@ const StyledHeader = styled.div`
   font-size: 28px;
   font-weight: bold;
   color: #fff;
-  background-color: #00AD9F;
+  background-color: ${({ theme }) => theme.color};
   padding: 8px 0;
+  &:hover {
+    cursor: pointer;
+  }
 `

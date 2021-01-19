@@ -7,11 +7,12 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font-weight: bold;
     color: #333;
+    box-sizing: border-box;
   }
   .box {
     padding: 16px;
     border: 4px solid #333;
-    margin: 16px;
+    /* margin: 16px; */
     border-radius: 16px;
   }
   /* Flexbox */

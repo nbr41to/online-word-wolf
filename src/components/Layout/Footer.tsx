@@ -14,7 +14,7 @@ const StyledFooter = styled.div`
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: #00AD9F;
+  background-color: ${({ theme }) => theme.color};;
   padding: 8px 0;
   position: absolute;
   bottom: 0;
