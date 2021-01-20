@@ -32,8 +32,14 @@ export const GlobalStyle = createGlobalStyle`
     flex-direction: column;
   }
   /* 余白 */
+  .m--8 {
+    margin: -8px;
+  }
   .m-4 {
     margin: 4px;
+  }
+  .m-8 {
+    margin: 8px;
   }
   .mt-8 {
     margin-top: 8px;
@@ -66,7 +72,6 @@ export const GlobalStyle = createGlobalStyle`
   .bgc-p {
     background-color: peachpuff;
   }
-
 
   /* ============ reset =============*/
   /*! destyle.css v2.0.2 | MIT License | https://github.com/nicolas-cusan/destyle.css */

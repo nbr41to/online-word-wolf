@@ -1,18 +1,19 @@
 import { Layout } from 'src/components/Layout'
-import { RecoilRoot, useRecoilValue } from 'recoil';
+import { RecoilRoot } from 'recoil'
 import { GlobalStyle } from 'src/styles/GlobalStyle'
 import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
 import { theme1 } from 'src/styles/theme'
 import { FireStoreToRecoil } from 'src/recoil/FireStoreToRecoil'
-import { room, user } from 'src/recoil/atom';
+import { RedirectHome } from 'src/components/RedirectHome'
 
 function MyApp({ Component, pageProps }) {
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme1}>
-        <FireStoreToRecoil />
         <GlobalStyle />
+        {/* <FireStoreToRecoil /> */}
+        <RedirectHome />
         <Layout>
           <Head>
             <title>Online Word Wolf</title>

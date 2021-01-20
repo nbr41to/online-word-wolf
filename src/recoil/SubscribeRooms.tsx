@@ -5,19 +5,32 @@ import { room, Room } from 'src/recoil/atom'
 import { firebase } from 'src/firebase'
 import { useRouter } from 'next/router'
 
-export const FireStoreToRecoil = () => {
+export const SubscribeRooms = () => {
   const [userInfo, setUserInfo] = useRecoilState(user)
   const [roomInfo, setRoomInfo] = useRecoilState(room)
-  const roomRef = firebase.firestore().collection('rooms')
   const router = useRouter()
-  console.log(roomInfo.roomId)
-  console.log(roomInfo.roomId !== '' && router.asPath.endsWith(roomInfo.roomId))
+  const roomId = roomInfo.roomId
+  console.log(roomId)
   React.useEffect(() => {
-    if (roomInfo.roomId !== '' && router.asPath.endsWith(roomInfo.roomId)) {
-      console.log('FireStoreToRecoil!!')
-      firebase.firestore().collection('rooms').doc(roomInfo.roomId).onSnapshot((doc) => {
+    let unSubscribe
+    if (roomId !== '' && router.asPath.endsWith(roomId)) {
+      console.log('SubscribeRooms!!')
+      unSubscribe = firebase.firestore().collection('rooms').doc(roomId).onSnapshot((doc) => {
         const roomDoc = doc.data() as Room
         setRoomInfo(roomDoc)
+      })
+    }
+    return () => {
+      if (roomId) {
+        unSubscribe()
+        firebase.firestore().collection('rooms').doc(roomId).delete()
+      }
+      setRoomInfo({
+        roomId: '',
+        inviteCode: '',
+        isGaming: false,
+        theme: [],
+        member: null,
       })
     }
   }, [])

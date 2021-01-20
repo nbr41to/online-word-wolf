@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export type ButtonProps = {
   className?: string
-  onClick: () => void
+  onClick: (event?: React.MouseEvent<HTMLInputElement>) => void
   label: string
   size?: 'small' | 'middle' | 'large'
   fill?: boolean

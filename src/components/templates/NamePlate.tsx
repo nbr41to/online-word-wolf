@@ -8,21 +8,29 @@ import { Modal } from '../Modal'
 import { Input } from '../Input'
 
 export const NamePlate = () => {
-  const [info, setInfo] = useRecoilState(user)
-  const [text, setText] = React.useState(info.name)
+  const [userInfo, setUserInfo] = useRecoilState(user)
+  const [name, setName] = React.useState(userInfo.name)
   const [isEditing, setIsEditing] = React.useState(false)
-  const saveName = () => {
-    setInfo({ name: text, icon: info.icon })
-    setIsEditing(false)
+
+  const saveName = (e: React.MouseEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (name !== '') {
+      setUserInfo({ ...userInfo, name: name })
+      setIsEditing(false)
+    } else alert('名前を入力してください')
   }
   return (
     <div className='box flex between'>
-      <UserIcon icon={info.icon} size={60} />
-      <Name name={info.name} label />
+      <UserIcon icon={userInfo.icon} size={60} />
+      <Name name={userInfo.name} label />
       <Button className='ml-16' label='編集' size='small' onClick={() => { setIsEditing(true) }} />
       <Modal className='ml-16' size='small' isOpen={isEditing} closed={() => { setIsEditing(false) }}>
-        <Input className='box mb-16' type="text" value={text} onChange={(e) => setText(e.target.value)} />
-        <Button label='保存' size='small' onClick={saveName} />
+        <form className='flex center column' onSubmit={(e) => saveName(e)}>
+          <div className='m-8'>あなたのおなまえは</div>
+          <Input type="text" value={name} onChange={(e) => setName(e.target.value)} autoFocus />
+          <div className='m-8'>です。</div>
+          <Button label='決定' size='small' onClick={(e) => saveName(e)} />
+        </form>
       </Modal>
     </div>
   )
