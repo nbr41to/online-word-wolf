@@ -12,23 +12,24 @@ export const user = atom<User>({
   },
 });
 
-type Room = {
+export type Room = {
   roomId: string
   inviteCode: string
   host: string
-  players: string[],
+  roomMember: string[],
   table: {},
   isGaming: boolean,
   finished: boolean,
   votes: string[],
 }
-export const room = atom({
+
+export const room = atom<Room>({
   key: 'room',
   default: {
     roomId: '',
-    inviteCode: '',
+    inviteCode: '206696',
     host: '',
-    players: [],
+    roomMember: ["john","kevin"],
     table: {},
     isGaming: false,
     finished: false,

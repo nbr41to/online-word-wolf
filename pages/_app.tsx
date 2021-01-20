@@ -4,11 +4,13 @@ import { GlobalStyle } from 'src/styles/GlobalStyle'
 import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
 import { theme1 } from 'src/styles/theme'
+import { FireStoreToRecoil } from 'src/recoil/FireStoreToRecoil'
 
 function MyApp({ Component, pageProps }) {
   return (
     <RecoilRoot>
       <ThemeProvider theme={theme1}>
+        <FireStoreToRecoil />
         <GlobalStyle />
         <Layout>
           <Head>

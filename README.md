@@ -33,3 +33,38 @@
 - styled-component
 - mdx
 - Recoil
+
+## Components
+
+### Layout
+
+- Header
+- Main
+- Footer (FooterMenu)
+
+### Home
+
+- Eyecatch
+- PlayRules
+- GameStart
+
+### Room
+
+- UserInfo (Edit)
+- CreateRoom
+- JoinRoom
+
+### Room:id
+
+- Members
+- StartButton
+- OnGame
+- Theme
+- Timer
+- Vote
+- Result
+
+Other
+
+- button
+- modal
