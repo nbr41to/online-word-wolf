@@ -32,6 +32,9 @@ export const GlobalStyle = createGlobalStyle`
     flex-direction: column;
   }
   /* 余白 */
+  .m-4 {
+    margin: 4px;
+  }
   .mt-8 {
     margin-top: 8px;
   }

@@ -1,10 +1,11 @@
 import { Layout } from 'src/components/Layout'
-import { RecoilRoot } from 'recoil'
+import { RecoilRoot, useRecoilValue } from 'recoil';
 import { GlobalStyle } from 'src/styles/GlobalStyle'
 import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
 import { theme1 } from 'src/styles/theme'
 import { FireStoreToRecoil } from 'src/recoil/FireStoreToRecoil'
+import { room, user } from 'src/recoil/atom';
 
 function MyApp({ Component, pageProps }) {
   return (

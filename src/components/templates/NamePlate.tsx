@@ -18,7 +18,7 @@ export const NamePlate = () => {
   return (
     <div className='box flex between'>
       <UserIcon icon={info.icon} size={60} />
-      <Name name={info.name} />
+      <Name name={info.name} label />
       <Button className='ml-16' label='編集' size='small' onClick={() => { setIsEditing(true) }} />
       <Modal className='ml-16' size='small' isOpen={isEditing} closed={() => { setIsEditing(false) }}>
         <Input className='box mb-16' type="text" value={text} onChange={(e) => setText(e.target.value)} />

@@ -1,6 +1,6 @@
 import {atom} from'recoil'
 
-type User = {
+export type User = {
   name: string
   icon: 'lion' | 'neko'
 }
@@ -13,10 +13,11 @@ export const user = atom<User>({
 });
 
 export type Room = {
-  roomId: string
-  inviteCode: string
-  host: string
-  roomMember: string[],
+  readonly roomId: string
+  readonly inviteCode: string
+  theme: string[]
+  readonly host: string
+  member: User[],
   table: {},
   isGaming: boolean,
   finished: boolean,
@@ -27,9 +28,10 @@ export const room = atom<Room>({
   key: 'room',
   default: {
     roomId: '',
-    inviteCode: '206696',
+    inviteCode: '850197',
+    theme:[],
     host: '',
-    roomMember: ["john","kevin"],
+    member: [],
     table: {},
     isGaming: false,
     finished: false,

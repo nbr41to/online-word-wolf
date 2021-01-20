@@ -1,15 +1,16 @@
-import React, { ReactFragment } from 'react'
+import React from 'react'
 import Image from 'next/image';
 import styled from 'styled-components';
 
 type UserIconProps = {
+  className?: string
   icon: 'lion' | 'neko'
   size: number
 }
 
-export const UserIcon: React.FC<UserIconProps> = ({ icon, size }) => {
+export const UserIcon: React.FC<UserIconProps> = ({ icon, size, className }) => {
   return (
-    <StyledImage src={`/icons/user-icon/${icon}.png`} width={size} height={size} />
+    <StyledImage className={className} src={`/icons/user-icon/${icon}.png`} width={size} height={size} />
   )
 }
 

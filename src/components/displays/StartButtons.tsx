@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '../Button'
 import { useRouter } from 'next/router'
-import { user, room, Room } from 'src/recoil/atom'
+import { user, room, User, Room } from 'src/recoil/atom'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { firebase } from 'src/firebase'
 import { Modal } from '../Modal'
@@ -12,12 +12,12 @@ type StartButtonsProps = {
 
 export const StartButtons: React.FC<StartButtonsProps> = () => {
   const [isOpen, setIsOpen] = React.useState(false)
-  const [inviteCode, setInviteCode] = React.useState('')
-  const _user = useRecoilValue(user)
-  const _setRoomInfo = useSetRecoilState(room)
+  const [inviteCode, setInviteCode] = React.useState('850197')
+  const userInfo = useRecoilValue(user)
+  const setRoomInfo = useSetRecoilState(room)
   console.log(inviteCode)
   const createRoom = async () => {
-    if (_user.name !== "") {
+    if (userInfo.name !== "") {
       const inviteCode = String(Math.random() * 1).slice(2, 8) // 6桁の乱数文字列生成
       await firebase.auth().signInAnonymously()
       const roomId = firebase.firestore().collection('rooms').doc().id
@@ -26,8 +26,8 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
           roomId,
           inviteCode,
           theme: ['サル', 'チンパンジー'],
-          // host: name,
-          // players: [name],
+          host: userInfo.name,
+          member: [],
           // table: {},
           // isGaming: false,
           // finished: false,
@@ -52,7 +52,7 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
             docs.forEach(doc => {
               const roomInfo = doc.data() as Room
               roomId = roomInfo.roomId
-              _setRoomInfo(roomInfo)
+              setRoomInfo(roomInfo)
             })
           } else alert("部屋が存在しません")
         })
