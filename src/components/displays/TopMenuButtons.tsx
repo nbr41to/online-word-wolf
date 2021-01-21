@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil'
 import { user } from 'src/recoil/atom'
 import shortid from 'shortid'
 import { Input } from '../Input'
+import { firebase } from 'src/firebase'
 
 export const TopMenuButtons = () => {
   const [name, setName] = React.useState('')
@@ -15,9 +16,9 @@ export const TopMenuButtons = () => {
   const [isCheckRule, setIsCheckRule] = React.useState(false)
   const [userInfo, setUserInfo] = useRecoilState(user)
   const router = useRouter()
-  const nameInput = React.useRef(null)
 
   const entry = () => {
+    firebase.auth().signInAnonymously() // 消す
     if (userInfo.id && userInfo.name) {
       router.push('/room')
     } else {

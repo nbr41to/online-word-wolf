@@ -19,7 +19,7 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
 
   const createRoom = async () => {
     const inviteCode = String(Math.random() * 1).slice(2, 8) // 6桁の乱数文字列生成
-    await firebase.auth().signInAnonymously()
+    // await firebase.auth().signInAnonymously()
     const roomId = firebase.firestore().collection('rooms').doc().id
     await firebase.firestore().collection("rooms").doc(roomId).set(
       {
@@ -48,7 +48,7 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
   const getRoomId = async (code: string) => {
     if (code.length === 6) {
       let roomId
-      await firebase.auth().signInAnonymously() // 消す
+      // await firebase.auth().signInAnonymously() // 消す
       await firebase.firestore().collection('rooms')
         .where("inviteCode", "==", code).where("isGaming", "==", false).limit(1).get()
         .then(

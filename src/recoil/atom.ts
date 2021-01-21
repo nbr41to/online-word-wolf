@@ -32,6 +32,7 @@ export type Room = {
   theme: string[]
   member: Member | null
   isGaming: boolean
+  finished: boolean
 }
 
 export const room = atom<Room>({
@@ -39,8 +40,9 @@ export const room = atom<Room>({
   default: {
     roomId: '',
     inviteCode: '',
-    isGaming: false,
     theme: ['サル', 'チンパンジー'],
     member: null,
+    isGaming: false,
+    finished: false,
   },
 })

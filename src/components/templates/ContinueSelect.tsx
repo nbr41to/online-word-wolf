@@ -6,8 +6,8 @@ type ContinueSelectProps = {
 
 export const ContinueSelect: React.FC<ContinueSelectProps> = () => {
   return (
-    <div>
-
+    <div className='box'>
+      もう一度遊ぶ
     </div>
   )
 }
