@@ -31,7 +31,6 @@ const roomsRef =firebase.firestore().collection('rooms')
             icon: userInfo.icon,
             isHost: false,
             ready: false,
-            votes: 0,
             theme: '',
             isWolf: false,
             voted: false,

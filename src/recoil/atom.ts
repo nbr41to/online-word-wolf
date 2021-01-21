@@ -20,9 +20,9 @@ export type Member = {
       icon: 'lion' | 'neko'
       isHost: boolean
       isReady: boolean
-      votes: number
       theme: string
       isWolf: boolean
+      votes :string[]
       voted: boolean
     }
   }
@@ -34,7 +34,7 @@ export type Room = {
   isGaming: boolean
   finished: boolean
 }
-
+  
 export const room = atom<Room>({
   key: 'room',
   default: {

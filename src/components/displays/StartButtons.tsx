@@ -32,13 +32,14 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
             icon: userInfo.icon,
             isHost: true,
             isReady: true,
-            votes: 0,
             theme: '',
             isWolf: false,
+            votes: [],
             voted: false,
           }
         },
         isGaming: false,
+        finished: false,
       }
     )
     setRoomInfo({ ...roomInfo, roomId })
@@ -66,14 +67,14 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
         const addKey = `member.${userInfo.id}` // dotつければobj追加できるからそれをkeyにする
         await firebase.firestore().collection("rooms").doc(roomId).update(
           {
-            [addKey]: {
+            [`member.${userInfo.id}`]: {
               name: userInfo.name,
               icon: userInfo.icon,
               isHost: false,
               isReady: false,
-              votes: 0,
               theme: '',
               isWolf: false,
+              votes: [],
               voted: false,
             }
           }
@@ -89,8 +90,8 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
   const router = useRouter()
   return (
     <div className='box flex center column'>
-      <Button label='自分で部屋をつくる' fill onClick={createRoom} />
-      <Button className='mt-16' fill label='友達の部屋にはいる' onClick={() => setIsOpen(true)} />
+      <Button label='自分で部屋をつくる' fullwide onClick={createRoom} />
+      <Button className='mt-16' fullwide label='友達の部屋にはいる' onClick={() => setIsOpen(true)} />
       <Modal size='small' isOpen={isOpen} closed={() => setIsOpen(false)}>
         <div className='mb-16'>招待コードを入力してください</div>
         <Input className='mb-16' type='tel' value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} autoFocus />

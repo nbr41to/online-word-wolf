@@ -9,7 +9,12 @@ export const SubscribeRooms = () => {
   const [userInfo, setUserInfo] = useRecoilState(user)
   const [roomInfo, setRoomInfo] = useRecoilState(room)
   const router = useRouter()
-  const roomId = roomInfo.roomId
+  let roomId: string
+  if (roomInfo) {
+    roomId = roomInfo.roomId
+  } else {
+    router.back()
+  }
   console.log(roomId)
   React.useEffect(() => {
     let unSubscribe
@@ -28,9 +33,10 @@ export const SubscribeRooms = () => {
       setRoomInfo({
         roomId: '',
         inviteCode: '',
-        isGaming: false,
         theme: [],
         member: null,
+        isGaming: false,
+        finished: false,
       })
     }
   }, [])

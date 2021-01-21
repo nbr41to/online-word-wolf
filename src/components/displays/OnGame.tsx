@@ -17,40 +17,26 @@ export const OnGame = () => {
     const key = `member.${wolf}.isWolf`
     await firebase.auth().signInAnonymously() // 消す
     await firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-      [key]: true
-    })
-    console.log('choiceWolf')
+      [`member.${wolf}.isWolf`]: true,
+    }).then(() => console.log('choiceWolf!!'))
   }
 
   // themeの割り振り
   const sortTheme = async () => {
-    if (roomInfo.theme && Object.keys(roomInfo.member).filter(name => roomInfo.member[name].isWolf)) {
+    console.log(Object.keys(roomInfo.member).filter(id => roomInfo.member[id].isWolf))
+    if (roomInfo.theme !== [] && Object.keys(roomInfo.member).filter(id => roomInfo.member[id].isWolf) !== []) {
       const dice = Math.floor(Math.random() * 2)
       // await firebase.auth().signInAnonymously() // 消す
-      Object.keys(roomInfo.member).map(name => {
-        if (roomInfo.member[name].isWolf) {
+      Object.keys(roomInfo.member).map(id => {
+        if (roomInfo.member[id].isWolf) {
           // wolf theme in
           firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-            ...roomInfo,
-            member: {
-              ...roomInfo.member,
-              [name]: {
-                ...roomInfo.member[name],
-                theme: roomInfo.theme[dice]
-              }
-            }
+            [`member.${id}.theme`]: roomInfo.theme[dice]
           })
         } else {
           // no wolf theme in
           firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-            ...roomInfo,
-            member: {
-              ...roomInfo.member,
-              [name]: {
-                ...roomInfo.member[name],
-                theme: roomInfo.theme[dice === 0 ? 1 : 0]
-              }
-            }
+            [`member.${id}.theme`]: roomInfo.theme[dice === 0 ? 1 : 0]
           })
         }
       })
@@ -60,13 +46,11 @@ export const OnGame = () => {
 
   // Game中に切り替える
   const gamingOn = async () => {
-    if (roomInfo.member.isHost) {
+    if (roomInfo.member[userInfo.id].isHost) {
       await firebase.auth().signInAnonymously() // 消す
       await firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-        ...roomInfo,
-        isGaming: true
-      })
-      console.log('gamingOn')
+        isGaming: true,
+      }).then(() => console.log('gamingOn'))
     }
   }
   const gameStart = async () => {

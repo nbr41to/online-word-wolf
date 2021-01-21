@@ -6,7 +6,7 @@ export type ButtonProps = {
   onClick: (event?: React.MouseEvent<HTMLInputElement>) => void
   label: string
   size?: 'small' | 'middle' | 'large'
-  fill?: boolean
+  fullwide?: boolean
   disabled?: boolean
   color?: string
   pressColor?: string
@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
   size = 'middle',
-  fill = false,
+  fullwide = false,
   color = '#333',
   pressColor = 'palegreen',
   disabled = false,
@@ -26,7 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
     <StyledButton
       className={`${className} ${size}`}
       onClick={onClick}
-      fill={fill}
+      fullwide={fullwide}
       color={color}
       pressColor={pressColor}
       disabled={disabled}
@@ -36,8 +36,8 @@ export const Button: React.FC<ButtonProps> = ({
   )
 }
 
-export const StyledButton = styled.button<{ color: string, pressColor: string, fill: boolean }>`
-  width: ${props => props.fill ? '100%' : ''};
+export const StyledButton = styled.button<{ color: string, pressColor: string, fullwide: boolean }>`
+  width: ${props => props.fullwide ? '100%' : ''};
   font-weight: bold;
   display: block;
   text-align: center;
