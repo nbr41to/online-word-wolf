@@ -16,7 +16,7 @@ const StyledFooter = styled.div`
   color: #fff;
   background-color: ${({ theme }) => theme.color};;
   padding: 8px 0;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
 `

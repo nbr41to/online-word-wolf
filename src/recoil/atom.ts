@@ -3,7 +3,7 @@ import { atom } from 'recoil'
 export type User = {
   id: any
   name: string
-  icon: 'lion' | 'neko' 
+  icon: 'lion' | 'neko'
 }
 export const user = atom<User>({
   key: 'user',
@@ -15,17 +15,16 @@ export const user = atom<User>({
 })
 
 export type Member = {
-    [id: string]: {
-      name: string
-      icon: 'lion' | 'neko'
-      isHost: boolean
-      isReady: boolean
-      theme: string
-      isWolf: boolean
-      votes :string[]
-      voted: boolean
-    }
+  [id: string]: {
+    name: string
+    icon: 'lion' | 'neko'
+    isHost: boolean
+    isReady: boolean
+    theme: string
+    votes: string[]
+    voted: boolean
   }
+}
 export type Room = {
   readonly roomId: string
   readonly inviteCode: string
@@ -34,14 +33,14 @@ export type Room = {
   isGaming: boolean
   finished: boolean
 }
-  
+
 export const room = atom<Room>({
   key: 'room',
   default: {
     roomId: '',
     inviteCode: '',
     theme: ['サル', 'チンパンジー'],
-    member: null,
+    member: {},
     isGaming: false,
     finished: false,
   },

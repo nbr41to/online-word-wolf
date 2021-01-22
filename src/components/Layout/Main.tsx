@@ -12,4 +12,5 @@ export const Main = ({ children }) => {
 const StyledMain = styled.div`
   width: 100%;
   padding: 8px;
+  margin-bottom:34px;
 `

@@ -10,8 +10,8 @@ export const InviteCode = () => {
   return (
     <div className='box flex between mb-8'>
       <div>招待コード</div>
-      <StyledInviteCode>{roomInfo.inviteCode}</StyledInviteCode>
-      <Clipboard data-clipboard-text={roomInfo.inviteCode}>
+      <StyledInviteCode>{roomInfo?.inviteCode}</StyledInviteCode>
+      <Clipboard data-clipboard-text={roomInfo?.inviteCode}>
         <Button label='copy' size='small' onClick={() => { }} />
       </Clipboard>
     </div>

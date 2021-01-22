@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import "firebase/firestore"
 import "firebase/auth"
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { Room, room, user, Member } from '../recoil/atom';
+import { Room, room, user, Member } from '../recoil/atom'
 
 // const firebaseConfig = {
 //     apiKey: process.env.DB_API_KEY,
@@ -29,89 +29,3 @@ if (firebase.apps.length === 0) {
 }
 
 export { firebase }
-const db = firebase.firestore()
-// const [userInfo, setUserInfo] = useRecoilState(user)
-// const [roomInfo, setRoomInfo] = useRecoilState(room)
-
-// roomId の取得
-// export const getRoomId = async (code: string) => {
-//   if (code.length === 6) {
-//     let roomId
-//     await firebase.auth().signInAnonymously() // 消す
-//     await firebase.firestore().collection('rooms')
-//       .where("inviteCode", "==", code).limit(1).get()
-//       .then(
-//         docs => docs.forEach(doc => {
-//           roomId = doc.id
-//           setRoomInfo({ ...roomInfo, roomId })
-//         })
-//       ).catch(e => console.log(e))
-//     return roomId
-//   }
-// }
-
-// export const gameStart = async () => {
-//   await gamingOn()
-//   await choiceWolf()
-//   await sortTheme()
-// }
-// // Wolfの決定
-// const choiceWolf = async () => {
-//   const dice = Math.floor(Math.random()*Object.keys(roomInfo.member).length)
-//   const wolfName = Object.keys(roomInfo.member)[dice]
-//   await firebase.auth().signInAnonymously() // 消す
-//   await firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-//     ...roomInfo,
-//     member:{
-//       ...roomInfo.member,
-//       [wolfName]:{
-//         ...roomInfo.member[wolfName],
-//         isWolf: true,
-//       }
-//     }
-//   })
-// }
-// // themeの割り振り
-// export const sortTheme = async () => {
-//   if(roomInfo.theme && Object.keys(roomInfo.member).filter(name=>roomInfo.member[name].isWolf)){
-//     const dice = Math.floor(Math.random()*2)
-//     await firebase.auth().signInAnonymously() // 消す
-//     Object.keys(roomInfo.member).map(name=>{
-//       if(roomInfo.member[name].isWolf){
-//         // wolf theme in
-//         firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-//           ...roomInfo,
-//           member:{
-//             ...roomInfo.member,
-//             [name]:{
-//               ...roomInfo.member[name],
-//               theme: roomInfo.theme[dice]
-//             }
-//           }
-//         })
-//       }else {
-//         // no wolf theme in
-//         firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-//           ...roomInfo,
-//           member:{
-//             ...roomInfo.member,
-//             [name]:{
-//               ...roomInfo.member[name],
-//               theme: roomInfo.theme[dice===0?1:0]
-//             }
-//           }
-//         })
-//       }
-//     })
-//   }
-// }
-// // Game中に切り替える
-// const gamingOn = async () => {
-//   if (roomInfo.member.isHost) {
-//     await firebase.auth().signInAnonymously() // 消す
-//     await firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-//       ...roomInfo,
-//       isGaming: true
-//     })
-//   }
-// }

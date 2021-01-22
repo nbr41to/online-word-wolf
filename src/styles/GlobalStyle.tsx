@@ -15,6 +15,9 @@ export const GlobalStyle = createGlobalStyle`
     /* margin: 16px; */
     border-radius: 16px;
   }
+  .fill {
+    width: 100%;
+  }
   /* Flexbox */
   .flex {
     display: flex;

@@ -21,7 +21,6 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
       finished: true
     })
   }
-  const [limitTime, setLimitTime] = React.useState(10)
   const [remainingTime, setRemainingTime] = React.useState(10)
   const startTimer = () => {
     const timer = setInterval(() => {
@@ -30,49 +29,88 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
     }, 1000)
   }
 
+  const [limitTime, setLimitTime] = React.useState(180) // カウントダウンする秒数
+
   React.useEffect(() => {
-    console.log('Game start!!')
-    // const timer = setInterval(() => {
-    //   setRemainingTime(remainingTime - 1)
-    //   if (remainingTime === 0) clearInterval(timer)
-    // }, 1000)
+    // 開始日時を設定
+    var dt = new Date()
+    // 終了時刻を開始日時+カウントダウンする秒数に設定
+    var endDt = new Date(dt.getTime() + limitTime * 1000)
+
+    // 1秒おきにカウントダウン
+    var cnt = limitTime
+    var id = setInterval(function () {
+      cnt--
+      setLimitTime(cnt)
+      // 現在日時と終了日時を比較
+      dt = new Date()
+      if (dt.getTime() >= endDt.getTime()) {
+        clearInterval(id)
+      }
+    }, 1000)
+    return (() => {
+
+    })
   }, [])
+
+  // これでコンパクトに済ませたい
+  // React.useEffect(() => {
+  //   if (limitTime >= 0) {
+  //     setInterval(() => {
+  //       setLimitTime(limitTime - 1)
+  //     }, 1000)
+  //   }
+  // }, [limitTime])
+
   const vote = (userId: string): void => {
     firebase.firestore().collection("rooms").doc(roomInfo.roomId).update({
-      [`member.${userId}.votes`]: firebase.firestore.FieldValue.arrayUnion(userInfo.id)
+      [`member.${userId}.votes`]: firebase.firestore.FieldValue.arrayUnion(userInfo.id),
+      [`member.${userInfo.id}.voted`]: true,
     })
   }
   return (
-    <div className='box flex column center'>
+    <div className='box flex column center mb-8'>
       <div>あなたのお題</div>
       <div>{playlerInfo.theme}</div>
       <div>残り時間</div>
-      <div>{remainingTime}秒</div>
-      <div className='box flex column center'>
-        <div>投票</div>
-        {Object.keys(roomInfo.member).map((id, index) => <Button label={roomInfo.member[id].name} onClick={() => vote(id)} />)}
-      </div>
-      {playlerIds.length === playlerIds.map(id => {
-        if (roomInfo.member[id].voted)
-          return id
-      }).length &&
-        <div className='box flex column center'>
+      <div>{limitTime}秒</div>
+      {(limitTime <= 0 || roomInfo.finished) &&
+        <>
+          <div>終了！</div>
+          <div className='box flex column center fill m-8'>
+            <div>投票</div>
+            {Object.keys(roomInfo.member).map((id, index) =>
+              <Button
+                key={index}
+                fullwide
+                label={roomInfo.member[id].name}
+                disabled={playlerInfo.voted}
+                onClick={() => vote(id)}
+                className='m-8'
+              />
+            )}
+          </div>
+        </>
+      }
+      {playlerIds.length === playlerIds.filter(id => roomInfo.member[id].voted).length &&
+        <div className='box flex column center fill m-8'>
           <div>結果発表</div>
           {playlerIds.map((id, index) =>
             <StyledPlayerPlate className='m-8 flex' key={index}>
               <UserIcon size={50} icon={roomInfo.member[id].icon} />
               <Name className='ml-16' name={roomInfo.member[id].name} />
-              <div className='ml-8'>{roomInfo.member[id].votes.length}票</div>
+              <div className='ml-16'>{roomInfo.member[id].votes.length}票</div>
             </StyledPlayerPlate>)}
           <div></div>
         </div>
       }
-      <Button label='終了する' onClick={gameFinish} />
+      <Button label='終了する' onClick={gameFinish} disabled={!playlerInfo.isHost || roomInfo.finished} className='mt-16' />
     </div>
   )
 }
 
 const StyledPlayerPlate = styled.div`
+  width: 100%;
   border: 2px solid #333;
   border-radius: 12px;
   align-items: center;

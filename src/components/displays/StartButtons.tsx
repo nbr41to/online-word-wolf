@@ -15,17 +15,28 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
   const [inviteCode, setInviteCode] = React.useState('')
   const userInfo = useRecoilValue(user)
   const [roomInfo, setRoomInfo] = useRecoilState(room)
-  console.log(inviteCode)
+
+  const getTheme = async () => {
+    let themes: string[][] = []
+    await firebase.firestore().collection('subjects').get().then(docs => {
+      docs.forEach(doc => {
+        const theme = doc.data().theme as string[]
+        themes.push(theme)
+      })
+    })
+    return themes[Math.floor(Math.random() * themes.length)]
+  }
 
   const createRoom = async () => {
     const inviteCode = String(Math.random() * 1).slice(2, 8) // 6桁の乱数文字列生成
     // await firebase.auth().signInAnonymously()
     const roomId = firebase.firestore().collection('rooms').doc().id
+    const theme = await getTheme()
     await firebase.firestore().collection("rooms").doc(roomId).set(
       {
         roomId,
         inviteCode,
-        theme: ['サル', 'チンパンジー'],
+        theme,
         member: {
           [userInfo.id]: {
             name: userInfo.name,
@@ -33,7 +44,6 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
             isHost: true,
             isReady: true,
             theme: '',
-            isWolf: false,
             votes: [],
             voted: false,
           }
@@ -73,7 +83,6 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
               isHost: false,
               isReady: false,
               theme: '',
-              isWolf: false,
               votes: [],
               voted: false,
             }

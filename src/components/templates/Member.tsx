@@ -8,7 +8,7 @@ import styled from 'styled-components'
 export const Member = () => {
   const userInfo = useRecoilValue(user)
   const roomInfo = useRecoilValue(room)
-  const member = roomInfo.member
+  const member = roomInfo?.member
   return (
     <div className='box mb-8'>
       <div>この部屋にいる人</div>

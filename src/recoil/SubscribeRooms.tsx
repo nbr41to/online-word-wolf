@@ -15,9 +15,8 @@ export const SubscribeRooms = () => {
   } else {
     router.back()
   }
-  console.log(roomId)
   React.useEffect(() => {
-    let unSubscribe
+    let unSubscribe: () => void
     if (roomId !== '' && router.asPath.endsWith(roomId)) {
       console.log('SubscribeRooms!!')
       unSubscribe = firebase.firestore().collection('rooms').doc(roomId).onSnapshot((doc) => {
@@ -29,15 +28,25 @@ export const SubscribeRooms = () => {
       if (roomId) {
         unSubscribe()
         firebase.firestore().collection('rooms').doc(roomId).delete()
+        setRoomInfo({
+          roomId: '',
+          inviteCode: '',
+          theme: [],
+          member: {
+            [userInfo.id]: {
+              name: userInfo.name,
+              icon: userInfo.icon,
+              isHost: false,
+              isReady: false,
+              theme: '',
+              votes: [],
+              voted: false,
+            }
+          },
+          isGaming: false,
+          finished: false,
+        })
       }
-      setRoomInfo({
-        roomId: '',
-        inviteCode: '',
-        theme: [],
-        member: null,
-        isGaming: false,
-        finished: false,
-      })
     }
   }, [])
   console.log("=== local_db_user ===")

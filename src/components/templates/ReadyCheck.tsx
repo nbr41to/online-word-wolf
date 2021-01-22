@@ -14,8 +14,7 @@ export const ReadyCheck: React.FC<ReadyCheckProps> = ({ gameStart }) => {
   const [readyDisabled, setReadyDisabled] = React.useState(false)
 
   // 全員isReadyでスタートButton
-  // const allReady = Object.values(roomInfo.member).length === Object.values(roomInfo.member).filter(member => member.isReady).length
-  const allReady = true
+  const allReady = Object.values(roomInfo.member).length === Object.values(roomInfo.member).filter(member => member.isReady).length
   const ready = () => {
     const key = `member.${userInfo.id}.isReady` // ネスト深くても更新できる
     firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
@@ -24,7 +23,7 @@ export const ReadyCheck: React.FC<ReadyCheckProps> = ({ gameStart }) => {
     setReadyDisabled(true)
   }
 
-  const isHost = roomInfo.member === null ? false : roomInfo.member[userInfo.id].isHost
+  const isHost = roomInfo.member[userInfo.id].isHost
   return (
     <div className='mb-8'>
       {(!isHost && !roomInfo.isGaming) && <Button label={readyDisabled ? 'Ready!!' : 'Ready??'} fullwide disabled={readyDisabled} onClick={ready} />}

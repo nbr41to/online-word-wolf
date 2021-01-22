@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { Modal } from '../Modal'
 import PlayingRule from 'src/docs/PlayingRule.mdx'
 import { useRecoilState } from 'recoil'
-import { user } from 'src/recoil/atom'
+import { room, user } from 'src/recoil/atom'
 import shortid from 'shortid'
 import { Input } from '../Input'
 import { firebase } from 'src/firebase'
@@ -15,10 +15,11 @@ export const TopMenuButtons = () => {
   const [isCreateUser, setIsCreateUser] = React.useState(false)
   const [isCheckRule, setIsCheckRule] = React.useState(false)
   const [userInfo, setUserInfo] = useRecoilState(user)
+  const [roomInfo, setRoomInfo] = useRecoilState(room)
   const router = useRouter()
 
   const entry = () => {
-    firebase.auth().signInAnonymously() // 消す
+    firebase.auth().signInAnonymously()
     if (userInfo.id && userInfo.name) {
       router.push('/room')
     } else {
@@ -29,6 +30,24 @@ export const TopMenuButtons = () => {
     e.preventDefault()
     const id = shortid.generate()
     setUserInfo({ name, id, icon: 'lion' })
+    setRoomInfo({
+      roomId: '',
+      inviteCode: '',
+      theme: [],
+      member: {
+        [id]: {
+          name: name,
+          icon: 'lion',
+          isHost: true,
+          isReady: true,
+          theme: '',
+          votes: [],
+          voted: false,
+        }
+      },
+      isGaming: false,
+      finished: false,
+    })
     router.push('/room')
   }
   return (
