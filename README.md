@@ -21,6 +21,8 @@
 - username の重複を回避
 - alertModal をつくる
 - 部屋から人がいなくなったら room を削除（ホストの継承も）
+- Modal の on-off を Recoil で管理する
+- 制限時間が設定可能
 
 ## Memo
 

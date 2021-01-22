@@ -33,11 +33,11 @@ export const TopMenuButtons = () => {
   }
   return (
     <div className='flex center'>
-      <StyledButton label='遊び方' onClick={() => setIsCheckRule(true)} />
+      <Button label='遊び方' fullwide onClick={() => setIsCheckRule(true)} className='m-16' />
       <Modal size='large' isOpen={isCheckRule} closed={() => setIsCheckRule(false)}>
         <PlayingRule />
       </Modal>
-      <StyledButton label='始める' onClick={entry} />
+      <Button label='始める' fullwide onClick={entry} className='m-16' />
       <Modal size='small' isOpen={isCreateUser} closed={() => setIsCreateUser(false)}>
         <form className='flex center column' onSubmit={(e) => createUserAndEntry(e)}>
           <div className='m-8'>あなたのおなまえは</div>

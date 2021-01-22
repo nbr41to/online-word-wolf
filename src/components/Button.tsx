@@ -6,7 +6,7 @@ export type ButtonProps = {
   onClick: (event?: React.MouseEvent<HTMLInputElement>) => void
   label: string
   size?: 'small' | 'middle' | 'large'
-  fullwide?: boolean
+  fullwide?: true
   disabled?: boolean
   color?: string
   pressColor?: string

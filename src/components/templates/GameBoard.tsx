@@ -21,10 +21,22 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
       finished: true
     })
   }
+  const [limitTime, setLimitTime] = React.useState(10)
+  const [remainingTime, setRemainingTime] = React.useState(10)
+  const startTimer = () => {
+    const timer = setInterval(() => {
+      setRemainingTime(remainingTime - 1)
+      if (remainingTime === 0) clearInterval(timer)
+    }, 1000)
+  }
 
   React.useEffect(() => {
-    console.log('gameBoard!!')
-  })
+    console.log('Game start!!')
+    // const timer = setInterval(() => {
+    //   setRemainingTime(remainingTime - 1)
+    //   if (remainingTime === 0) clearInterval(timer)
+    // }, 1000)
+  }, [])
   const vote = (userId: string): void => {
     firebase.firestore().collection("rooms").doc(roomInfo.roomId).update({
       [`member.${userId}.votes`]: firebase.firestore.FieldValue.arrayUnion(userInfo.id)
@@ -35,7 +47,7 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
       <div>あなたのお題</div>
       <div>{playlerInfo.theme}</div>
       <div>残り時間</div>
-      <div>{ }</div>
+      <div>{remainingTime}秒</div>
       <div className='box flex column center'>
         <div>投票</div>
         {Object.keys(roomInfo.member).map((id, index) => <Button label={roomInfo.member[id].name} onClick={() => vote(id)} />)}

@@ -41,6 +41,9 @@ export const GlobalStyle = createGlobalStyle`
   .m-8 {
     margin: 8px;
   }
+  .m-16 {
+    margin: 16px;
+  }
   .mt-8 {
     margin-top: 8px;
   }
