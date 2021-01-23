@@ -6,7 +6,7 @@ export type User = {
   icon: 'lion' | 'neko'
 }
 export const user = atom<User>({
-  key: 'user',
+  key: 'user_state',
   default: {
     id: '',
     name: '',
@@ -35,7 +35,7 @@ export type Room = {
 }
 
 export const room = atom<Room>({
-  key: 'room',
+  key: 'room_state',
   default: {
     roomId: '',
     inviteCode: '',

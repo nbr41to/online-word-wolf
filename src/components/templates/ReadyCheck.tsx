@@ -23,11 +23,14 @@ export const ReadyCheck: React.FC<ReadyCheckProps> = ({ gameStart }) => {
     setReadyDisabled(true)
   }
 
-  // const isHost = roomInfo.member[userInfo.id].isHost || false
+  let isHost = roomInfo.member[userInfo.id]?.isHost
+  // if (roomInfo.member[userInfo.id]) {
+  //   isHost = roomInfo.member[userInfo.id].isHost || false
+  // }
   return (
     <div className='mb-8'>
-      {(!roomInfo.member[userInfo.id].isHost && !roomInfo.isGaming) && <Button label={readyDisabled ? 'Ready!!' : 'Ready??'} fullwide disabled={readyDisabled} onClick={ready} />}
-      {(roomInfo.member[userInfo.id].isHost && !roomInfo.isGaming) && <Button label="GameStart" fullwide disabled={!allReady} onClick={gameStart} />}
+      {(!isHost && !roomInfo.isGaming) && <Button label={readyDisabled ? 'Ready!!' : 'Ready??'} fullwide disabled={readyDisabled} onClick={ready} />}
+      {(isHost && !roomInfo.isGaming) && <Button label="GameStart" fullwide disabled={!allReady} onClick={gameStart} />}
     </div>
   )
 }
