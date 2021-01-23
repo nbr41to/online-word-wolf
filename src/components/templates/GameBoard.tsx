@@ -22,12 +22,6 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
     })
   }
   const [remainingTime, setRemainingTime] = React.useState(10)
-  const startTimer = () => {
-    const timer = setInterval(() => {
-      setRemainingTime(remainingTime - 1)
-      if (remainingTime === 0) clearInterval(timer)
-    }, 1000)
-  }
 
   const [limitTime, setLimitTime] = React.useState(180) // カウントダウンする秒数
 
@@ -96,10 +90,11 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
         <div className='box flex column center fill m-8'>
           <div>結果発表</div>
           {playlerIds.map((id, index) =>
-            <StyledPlayerPlate className='m-8 flex' key={index}>
+            <StyledPlayerPlate className='m-8 flex between' key={index}>
               <UserIcon size={50} icon={roomInfo.member[id].icon} />
-              <Name className='ml-16' name={roomInfo.member[id].name} />
-              <div className='ml-16'>{roomInfo.member[id].votes.length}票</div>
+              <Name name={roomInfo.member[id].name} />
+              <div>{roomInfo.member[id].votes.length}票</div>
+              <div className='mr-8'>{roomInfo.member[id].theme}</div>
             </StyledPlayerPlate>)}
           <div></div>
         </div>
