@@ -1,8 +1,8 @@
 import React from 'react'
-import Image from 'next/image';
-import styled from 'styled-components';
+import Image from 'next/image'
+import styled from 'styled-components'
 
-type UserIconProps = {
+export type UserIconProps = {
   className?: string
   icon: 'lion' | 'neko'
   size: number

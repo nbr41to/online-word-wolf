@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
 import { TopMenuButtons } from 'src/components/displays/TopMenuButtons'
-import styled from 'styled-components';
+import styled from 'styled-components'
+import TopSentents from 'src/docs/TopSentents.mdx'
 
 export default function Home() {
 
@@ -11,7 +12,7 @@ export default function Home() {
         <Image src='/arctic-wolf.jpg' width={1920 / 2} height={1280 / 2} />
       </StyledImageBox>
       <TopMenuButtons />
-      <p>わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！わーどうるふだよ！</p>
+      <TopSentents />
     </>
   )
 }

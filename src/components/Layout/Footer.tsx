@@ -27,7 +27,7 @@ const StyledFooter = styled.div`
   bottom: 0;
   left: 0;
   span {
-    font-size: 30px;
+    font-size: 24px;
     margin-right:  4px;
   }
 `

@@ -6,6 +6,7 @@ import { UserIcon } from '../users/UserIcon'
 import { Name } from '../users/Name'
 import { Modal } from '../Modal'
 import { Input } from '../Input'
+import { EditUserIcon } from '../users/EditUserIcon'
 
 export const NamePlate = () => {
   const [userInfo, setUserInfo] = useRecoilState(user)
@@ -21,7 +22,7 @@ export const NamePlate = () => {
   }
   return (
     <div className='box flex between'>
-      <UserIcon icon={userInfo.icon} size={60} />
+      <EditUserIcon icon={userInfo.icon} size={60} />
       <Name name={userInfo.name} label />
       <Button className='ml-16' label='編集' size='small' onClick={() => { setIsEditing(true) }} />
       <Modal className='ml-16' size='small' isOpen={isEditing} closed={() => { setIsEditing(false) }}>

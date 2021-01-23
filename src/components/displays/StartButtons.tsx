@@ -58,7 +58,7 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
 
   const getRoomId = async (code: string) => {
     if (code.length === 6) {
-      let roomId
+      let roomId: string
       // await firebase.auth().signInAnonymously() // 消す
       await firebase.firestore().collection('rooms')
         .where("inviteCode", "==", code).where("isGaming", "==", false).limit(1).get()
@@ -74,7 +74,7 @@ export const StartButtons: React.FC<StartButtonsProps> = () => {
     if (inviteCode.length === 6) {
       const roomId = await getRoomId(inviteCode)
       if (roomId) {
-        const addKey = `member.${userInfo.id}` // dotつければobj追加できるからそれをkeyにする
+        // const addKey = `member.${userInfo.id}` // dotつければobj追加できるからそれをkeyにする
         await firebase.firestore().collection("rooms").doc(roomId).update(
           {
             [`member.${userInfo.id}`]: {

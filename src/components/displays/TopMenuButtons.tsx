@@ -28,35 +28,38 @@ export const TopMenuButtons = () => {
   }
   const createUserAndEntry = (e: React.MouseEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const id = shortid.generate()
-    setUserInfo({ name, id, icon: 'lion' })
-    setRoomInfo({
-      roomId: '',
-      inviteCode: '',
-      theme: [],
-      member: {
-        [id]: {
-          name: name,
-          icon: 'lion',
-          isHost: true,
-          isReady: true,
-          theme: '',
-          votes: [],
-          voted: false,
-        }
-      },
-      isGaming: false,
-      finished: false,
-    })
-    router.push('/room')
+    if (name) {
+
+      const id = shortid.generate()
+      setUserInfo({ name, id, icon: 'lion' })
+      setRoomInfo({
+        roomId: '',
+        inviteCode: '',
+        theme: [],
+        member: {
+          [id]: {
+            name: name,
+            icon: 'lion',
+            isHost: true,
+            isReady: true,
+            theme: '',
+            votes: [],
+            voted: false,
+          }
+        },
+        isGaming: false,
+        finished: false,
+      })
+      router.push('/room')
+    } else alert('名前を入力してください')
   }
   return (
-    <div className='flex center'>
-      <Button label='遊び方' fullwide onClick={() => setIsCheckRule(true)} className='m-16' />
+    <div className='flex center mt-8 mb-16'>
+      <Button label='遊び方' fullwide onClick={() => setIsCheckRule(true)} />
       <Modal size='large' isOpen={isCheckRule} closed={() => setIsCheckRule(false)}>
         <PlayingRule />
       </Modal>
-      <Button label='始める' fullwide onClick={entry} className='m-16' />
+      <Button label='始める' fullwide onClick={entry} className='ml-16' />
       <Modal size='small' isOpen={isCreateUser} closed={() => setIsCreateUser(false)}>
         <form className='flex center column' onSubmit={(e) => createUserAndEntry(e)}>
           <div className='m-8'>あなたのおなまえは</div>
