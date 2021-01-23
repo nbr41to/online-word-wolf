@@ -84,7 +84,7 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
                 key={index}
                 fullwide
                 label={roomInfo.member[id].name}
-                disabled={playlerInfo.voted}
+                disabled={playlerIds.length > 1 && (playlerInfo.voted || id == userInfo.id)}
                 onClick={() => vote(id)}
                 className='m-8'
               />
@@ -104,7 +104,7 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
           <div></div>
         </div>
       }
-      <Button label='終了する' onClick={gameFinish} disabled={!playlerInfo.isHost || roomInfo.finished} className='mt-16' />
+      <Button label='ゲームを終了する' onClick={gameFinish} disabled={!playlerInfo.isHost || roomInfo.finished} className='mt-16' />
     </div>
   )
 }
