@@ -2,6 +2,8 @@
 
 通話しながらワードウルフできる Web アプリ
 
+[https://online-word-wolf.vercel.app/](https://online-word-wolf.vercel.app/)
+
 ## Functions
 
 - 名前を決める
@@ -54,7 +56,6 @@
 displays を配置（State も Logic も持たない）
 
 - Home
-  /
 - Room
   room
 - Room[roomId]
