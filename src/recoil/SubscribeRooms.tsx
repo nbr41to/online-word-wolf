@@ -5,7 +5,7 @@ import { room, Room } from 'src/recoil/atom'
 import { firebase } from 'src/firebase'
 import { useRouter } from 'next/router'
 
-export const SubscribeRooms = () => {
+export const SubscribeRooms: React.FC = ({ children }) => {
   const [userInfo, setUserInfo] = useRecoilState(user)
   const [roomInfo, setRoomInfo] = useRecoilState(room)
   const router = useRouter()
@@ -13,13 +13,14 @@ export const SubscribeRooms = () => {
   if (roomInfo) {
     roomId = roomInfo.roomId
   } else {
-    router.back()
+    router.push("/room")
   }
   React.useEffect(() => {
     let unSubscribe: () => void
     if (roomId !== '' && router.asPath.endsWith(roomId)) {
       console.log('SubscribeRooms!!')
       unSubscribe = firebase.firestore().collection('rooms').doc(roomId).onSnapshot((doc) => {
+        if (!doc) return router.push('/room')
         const roomDoc = doc.data() as Room
         setRoomInfo(roomDoc)
       })
@@ -49,9 +50,9 @@ export const SubscribeRooms = () => {
       }
     }
   }, [])
-  console.log("=== local_db_user ===")
-  console.log(userInfo)
-  console.log("=== local_db_room ===")
+  // console.log("=== local_db_user ===")
+  // console.log(userInfo)
+  // console.log("=== local_db_room ===")
   console.log(roomInfo)
-  return null
+  return <>{children}</>
 }
