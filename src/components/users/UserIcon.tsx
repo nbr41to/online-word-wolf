@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export type UserIconProps = {
   className?: string
-  icon: 'lion' | 'neko'
+  icon: 'buta' | 'inu' | 'kuma' | 'lion' | 'neko' | 'panda' | 'penguin' | 'tora' | 'uma' | 'usagi' | 'zou'
   size: number
 }
 
@@ -15,5 +15,5 @@ export const UserIcon: React.FC<UserIconProps> = ({ icon, size, className }) => 
 }
 
 const StyledImage = styled(Image)`
-  /* border-radius: 50% */
+  /* border-radius: 50%; */
 `
