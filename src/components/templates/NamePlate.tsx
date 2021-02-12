@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button } from '../Button'
 import { useRecoilState } from 'recoil'
-import { user } from 'src/recoil/atom'
+import { Icon, user } from 'src/recoil/atom'
 import { UserIcon } from '../users/UserIcon'
 import { Name } from '../users/Name'
 import { Modal } from '../Modal'
 import { Input } from '../Input'
 import { EditUserIcon } from '../users/EditUserIcon'
+import { SelectIconList } from '../users/SelectIconList'
 
 export const NamePlate = () => {
   const [userInfo, setUserInfo] = useRecoilState(user)
@@ -20,16 +21,23 @@ export const NamePlate = () => {
       setIsEditing(false)
     } else alert('名前を入力してください')
   }
+  const saveIcon = (icon: Icon) => {
+    setUserInfo({
+      ...userInfo,
+      icon,
+    })
+  }
   return (
     <div className='box flex between'>
       <EditUserIcon icon={userInfo.icon} size={60} />
       <Name name={userInfo.name} label />
       <Button className='ml-16' label='編集' size='small' onClick={() => { setIsEditing(true) }} />
-      <Modal className='ml-16' size='small' isOpen={isEditing} closed={() => { setIsEditing(false) }}>
+      <Modal className='ml-16' size='large' isOpen={isEditing} closed={() => { setIsEditing(false) }}>
         <form className='flex center column' onSubmit={(e) => saveName(e)}>
-          <div className='m-8'>あなたのおなまえは</div>
-          <Input type="text" value={name} onChange={(e) => setName(e.target.value)} autoFocus />
-          <div className='m-8'>です。</div>
+          <div className='m-8'>名前を決める</div>
+          <Input className='mb-16' type="text" value={name} onChange={(e) => setName(e.target.value)} autoFocus />
+          <div className='m-8'>動物を選ぶ</div>
+          <SelectIconList className='mb-16' saveIcon={saveIcon} />
           <Button label='決定' size='small' onClick={(e) => saveName(e)} />
         </form>
       </Modal>

@@ -6,10 +6,11 @@ import { SubscribeRooms } from '../../src/recoil/SubscribeRooms'
 const PlayingRoom = () => {
   return (
     <div>
-      <SubscribeRooms />
-      <InviteCode />
-      <Member />
-      <OnGame />
+      <SubscribeRooms>
+        <InviteCode />
+        <Member />
+        <OnGame />
+      </SubscribeRooms>
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Button'
 
-type ModalProps = {
+export type ModalProps = {
   className?: string
   isOpen: boolean
   closed: () => void
