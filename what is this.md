@@ -1,20 +1,9 @@
-import React from 'react'
-import { useRecoilState } from 'recoil'
-import { user } from 'src/recoil/atom'
-import { room, Room } from 'src/recoil/atom'
-import { firebase } from 'src/firebase'
-import { useRouter } from 'next/router'
+type Theme = typeof theme1
+declare module "styled-components" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface DefaultTheme extends Theme {}
+}
 
-export const SubscribeRooms: React.FC = ({ children }) => {
-  const [userInfo, setUserInfo] = useRecoilState(user)
-  const [roomInfo, setRoomInfo] = useRecoilState(room)
-  const router = useRouter()
-  let roomId: string
-  if (roomInfo) {
-    roomId = roomInfo.roomId
-  } else {
-    router.push("/room")
-  }
   React.useEffect(() => {
     let unSubscribe: () => void
     if (roomId !== '' && router.asPath.endsWith(roomId)) {
@@ -50,9 +39,14 @@ export const SubscribeRooms: React.FC = ({ children }) => {
       }
     }
   }, [])
-  // console.log("=== local_db_user ===")
-  // console.log(userInfo)
-  // console.log("=== local_db_room ===")
-  console.log(roomInfo)
-  return <>{children}</>
-}
+
+  const getTheme = async () => {
+    let themes: string[][] = []　配列の中に配列が入っている　型定義
+    await firebase.firestore().collection('subjects').get().then(docs => {
+      docs.forEach(doc => {
+        const theme = doc.data().theme as string[]　配列の中に文字列型が入ってる方定義
+        themes.push(theme)
+      })
+    })
+    return themes[Math.floor(Math.random() * themes.length)]
+  }

@@ -1,60 +1,66 @@
-import React from 'react'
-import { useRecoilValue } from 'recoil'
+import React, { useEffect,useContext } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { room, user } from '../../recoil/atom'
 import { firebase } from 'src/firebase'
 import { Button } from '../Button'
 import styled from 'styled-components'
 import { UserIcon } from '../users/UserIcon'
 import { Name } from '../users/Name'
+// import { DataContext } from '../displays/DataProvider'
 
 type GameBoardProps = {
-
+  limitTime: number,
+  setLimitTime: any,
+  intervalId: any,
+  setIntervalId: any
 }
 
-export const GameBoard: React.FC<GameBoardProps> = () => {
+export const GameBoard: React.FC<GameBoardProps> = ({limitTime,setLimitTime,intervalId,setIntervalId}) => {
+  // const roomInfo = useRecoilValue(room)
   const roomInfo = useRecoilValue(room)
   const userInfo = useRecoilValue(user)
   const playlerInfo = roomInfo.member[userInfo.id]
   const playlerIds = Object.keys(roomInfo.member)
+  let limit = 180
+  // これでコンパクトに済ませたい
+
+  useEffect(()=>{
+    if(roomInfo.finished){
+      clearInterval(intervalId)
+      setLimitTime(0)
+    }else if(!roomInfo.finished){
+      limit = 180
+      clearInterval(intervalId)
+      setLimitTime(limit)
+      
+      setIntervalId(setInterval(()=>{
+        limit = limit - 1
+        setLimitTime(limit)
+        if(limit <= 0 ){
+          limit = 0
+          firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
+            finished: true,
+            // isGaming: false falseにすると途中参加できるがGAMESTARTボタンが表示されてしまう
+            // 新しく酸化OKのプロパティ作るかfinished: trueかつisGaming: trueの部屋に入れるようにする
+          })
+        }
+      },1000))
+
+    }
+  },[roomInfo.finished])
+
   const gameFinish = () => {
+    limit = 0
+    setLimitTime(limit)
+    clearInterval(intervalId)
+
     firebase.firestore().collection('rooms').doc(roomInfo.roomId).update({
-      finished: true
+      finished: true,
+      // isGaming: false
     })
   }
-  const [remainingTime, setRemainingTime] = React.useState(10)
+  // const [remainingTime, setRemainingTime] = React.useState(10)
 
-  const [limitTime, setLimitTime] = React.useState(180) // カウントダウンする秒数
-
-  React.useEffect(() => {
-    // 開始日時を設定
-    var dt = new Date()
-    // 終了時刻を開始日時+カウントダウンする秒数に設定
-    var endDt = new Date(dt.getTime() + limitTime * 1000)
-
-    // 1秒おきにカウントダウン
-    var cnt = limitTime
-    var id = setInterval(function () {
-      cnt--
-      setLimitTime(cnt)
-      // 現在日時と終了日時を比較
-      dt = new Date()
-      if (dt.getTime() >= endDt.getTime()) {
-        clearInterval(id)
-      }
-    }, 1000)
-    return (() => {
-
-    })
-  }, [])
-
-  // これでコンパクトに済ませたい
-  // React.useEffect(() => {
-  //   if (limitTime >= 0) {
-  //     setInterval(() => {
-  //       setLimitTime(limitTime - 1)
-  //     }, 1000)
-  //   }
-  // }, [limitTime])
 
   const vote = (userId: string): void => {
     firebase.firestore().collection("rooms").doc(roomInfo.roomId).update({
@@ -62,6 +68,9 @@ export const GameBoard: React.FC<GameBoardProps> = () => {
       [`member.${userInfo.id}.voted`]: true,
     })
   }
+
+
+
   return (
     <div className='box flex column center mb-8'>
       <div>あなたのお題</div>

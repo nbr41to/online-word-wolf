@@ -1,10 +1,12 @@
 import { firebase } from 'src/firebase'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ContinueSelect } from '../templates/ContinueSelect'
 import { ReadyCheck } from '../templates/ReadyCheck'
 import { useRecoilState } from 'recoil'
 import { room, user } from 'src/recoil/atom'
 import { GameBoard } from '../templates/GameBoard'
+// import {DataProvider} from "./DataProvider"
+
 
 export const OnGame = () => {
   const [userInfo, setUserInfo] = useRecoilState(user)
@@ -35,11 +37,31 @@ export const OnGame = () => {
     }).then(() => console.log('gamingOn'))
   }
 
+
+  //useContext使ってプロパティを渡したかった
+  let limit = 180
+  const [limitTime,setLimitTime] = useState(limit)
+  const [intervalId,setIntervalId] = useState(null)
+
+  
+
+
   return (
     <div>
       <ReadyCheck gameStart={gameStart} />
-      {roomInfo?.isGaming && <GameBoard />}
-      {roomInfo?.finished && <ContinueSelect />}
+      {roomInfo?.isGaming && <GameBoard 
+        limitTime={limitTime} 
+        setLimitTime={setLimitTime} 
+        intervalId={intervalId}
+        setIntervalId={setIntervalId}
+        />}
+      {/* {roomInfo?.finished && <ContinueSelect setLimitTime={setLimitTime} />} */}
+      {roomInfo?.finished && <ContinueSelect 
+        limitTime={limitTime}
+        setLimitTime={setLimitTime} 
+        intervalId={intervalId}
+        setIntervalId={setIntervalId}
+         />}
     </div>
   )
 }

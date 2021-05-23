@@ -11,7 +11,9 @@ export const FireStoreToRecoil = () => {
   const roomRef = firebase.firestore().collection('rooms')
   const router = useRouter()
   console.log(roomInfo.roomId)
+
   console.log(roomInfo.roomId !== '' && router.asPath.endsWith(roomInfo.roomId))
+  
   React.useEffect(() => {
     if (roomInfo.roomId !== '' && router.asPath.endsWith(roomInfo.roomId)) {
       console.log('FireStoreToRecoil!!')

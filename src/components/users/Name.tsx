@@ -20,6 +20,6 @@ export const Name: React.FC<NameProps> = ({ name, label = false, className }) =>
 const StyledNamePlate = styled.div<{ isOwn: boolean }>`
   font-size: ${({ theme }) => theme.fonts.large};
   .name {
-    color: ${(props) => props.isOwn ? 'tomato' : ''};
+    color: ${(props) => props.isOwn ? 'tomato' : ''}
   }
 `
