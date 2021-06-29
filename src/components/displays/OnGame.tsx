@@ -39,7 +39,7 @@ export const OnGame = () => {
     <div>
       <ReadyCheck gameStart={gameStart} />
       {roomInfo?.isGaming && <GameBoard />}
-      {roomInfo?.finished && <ContinueSelect />}
+      {roomInfo?.finished && <ContinueSelect gameStart={gameStart} />}
     </div>
   )
 }
