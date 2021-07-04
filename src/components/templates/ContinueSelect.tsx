@@ -18,12 +18,29 @@ export const ContinueSelect: React.FC<ContinueSelectProps> = () => {
 
   const db = firebase.firestore();
 
-  const replay = () => {
+  const getTheme = async () => {
+    let themes: string[][] = [];
+    await firebase
+      .firestore()
+      .collection('subjects')
+      .get()
+      .then((docs) => {
+        docs.forEach((doc) => {
+          const theme = doc.data().theme as string[];
+          themes.push(theme);
+        });
+      });
+    return themes[Math.floor(Math.random() * themes.length)];
+  };
+
+  const replay = async () => {
+    const theme = await getTheme();
     db.collection('rooms')
       .doc(roomId)
       .update({
         finished: false,
         isGaming: false,
+        theme: theme,
         [`member.${userId}.votes`]: false,
         [`member.${userInfo.id}.voted`]: false,
       });
