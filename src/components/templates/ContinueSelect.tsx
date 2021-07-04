@@ -31,15 +31,17 @@ export const ContinueSelect = () => {
 
   const replay = async () => {
     const theme = await getTheme();
-    db.collection('rooms')
-      .doc(roomId)
-      .update({
-        finished: false,
-        isGaming: false,
-        theme: theme,
-        [`member.${userId}.votes`]: false,
-        [`member.${userInfo.id}.voted`]: false,
-      });
+    Object.keys(roomInfo.member).map((id) => {
+      db.collection('rooms')
+        .doc(roomId)
+        .update({
+          finished: false,
+          isGaming: false,
+          theme: theme,
+          [`member.${id}.votes`]: [],
+          [`member.${id}.voted`]: false,
+        });
+    });
   };
 
   return (
