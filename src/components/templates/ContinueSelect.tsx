@@ -50,7 +50,7 @@ export const ContinueSelect = () => {
         onClick={() => router.back()}
         className="mb-8"
       />
-      <Button label="もう一度遊ぶ coming soon" fullwide onClick={replay} />
+      <Button label="もう一度遊ぶ" fullwide onClick={replay} />
     </div>
   );
 };
