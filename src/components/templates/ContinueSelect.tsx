@@ -5,11 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { firebase } from 'src/firebase';
 import { room, user } from '../../recoil/atom';
 
-type ContinueSelectProps = {
-  gameStart: () => void;
-};
-
-export const ContinueSelect: React.FC<ContinueSelectProps> = () => {
+export const ContinueSelect = () => {
   const router = useRouter();
   const userInfo = useRecoilValue(user);
   const roomInfo = useRecoilValue(room);
